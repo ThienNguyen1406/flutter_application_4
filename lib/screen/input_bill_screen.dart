@@ -3,6 +3,8 @@ import 'package:flutter_application_4/themes/app_images.dart';
 import 'package:flutter_application_4/util/call_api.dart';
 import 'package:flutter_application_4/widget/bassic_text_input.dart';
 
+import 'bill_screen.dart';
+
 class InputBillScreen extends StatefulWidget {
   const InputBillScreen({super.key});
 
@@ -13,12 +15,36 @@ class InputBillScreen extends StatefulWidget {
 class _InputBillScreenState extends State<InputBillScreen> {
   TextEditingController billController = TextEditingController();
 
-  void fetchBillData() {
-    CallApi callApi = CallApi(
-      billController: billController,
-      context: context,
-    );
-    callApi.fetchBillData();
+  // Gọi API từ CallApi
+  Future<void> fetchBillData() async {
+    try {
+      final callApi = CallApi();
+      await callApi.fetchBillData();
+
+      // Tìm hóa đơn theo mã
+      final bill = callApi.listBill.firstWhere(
+        (e) => e.maHoaDon == billController.text.trim(),
+      );
+
+      if (bill != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BillScreen(bill: bill),
+          ),
+        );
+      } else {
+        // Hiển thị thông báo nếu không tìm thấy
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Hóa đơn không tìm thấy!")),
+        );
+      }
+    } catch (e) {
+      // Hiển thị lỗi nếu gọi API thất bại
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Lỗi khi gọi API: $e")),
+      );
+    }
   }
 
   @override
@@ -42,7 +68,7 @@ class _InputBillScreenState extends State<InputBillScreen> {
                   const SnackBar(content: Text("Vui lòng nhập mã hóa đơn!")),
                 );
               } else {
-                fetchBillData();
+                fetchBillData(); // Gọi API khi nút được nhấn
               }
             },
             child: Container(
