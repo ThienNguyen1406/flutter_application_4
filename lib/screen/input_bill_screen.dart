@@ -21,7 +21,6 @@ class _InputBillScreenState extends State<InputBillScreen> {
       final callApi = CallApi();
       await callApi.fetchBillData();
 
-      // Tìm hóa đơn theo mã
       final bill = callApi.listBill.firstWhere(
         (e) => e.maHoaDon == billController.text.trim(),
       );
@@ -68,7 +67,7 @@ class _InputBillScreenState extends State<InputBillScreen> {
                   const SnackBar(content: Text("Vui lòng nhập mã hóa đơn!")),
                 );
               } else {
-                fetchBillData(); // Gọi API khi nút được nhấn
+                fetchBillData();
               }
             },
             child: Container(
