@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_4/page/login_screen.dart';
 import 'package:flutter_application_4/screen/end_screen.dart';
 import 'package:flutter_application_4/themes/app_images.dart';
-import 'package:flutter_application_4/widget/bassic_text_input.dart';
 
 class VoteScreen extends StatefulWidget {
   const VoteScreen({super.key});
@@ -12,7 +10,7 @@ class VoteScreen extends StatefulWidget {
 }
 
 class _VoteScreenState extends State<VoteScreen> {
-  int selectedIndex = -1; // Biến để theo dõi lựa chọn của người dùng
+  int selectedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
