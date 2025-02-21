@@ -21,7 +21,7 @@ class EndScreen extends StatelessWidget {
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Color.fromRGBO(
-                    47, 179, 178, 1), // Màu chữ trắng để dễ nhìn trên nền tối
+                    47, 179, 178, 1), 
               ),
             ),
             SizedBox(height: 10),
@@ -29,7 +29,7 @@ class EndScreen extends StatelessWidget {
               "Đã tham gia đánh giá trải nghiệm của chúng tôi",
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.black, // Màu chữ trắng để dễ nhìn trên nền tối
+                color: Colors.black, 
               ),
             ),
           ],

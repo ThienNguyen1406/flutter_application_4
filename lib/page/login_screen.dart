@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_4/router/app_router.dart';
 import 'package:flutter_application_4/screen/action_sceen.dart';
 import 'package:flutter_application_4/screen/bill_screen.dart';
 import 'package:flutter_application_4/screen/input_bill_screen.dart';
@@ -42,24 +43,28 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const InputBillScreen(),
-                  ),
+                Navigator.pushNamed(
+                  context, 
+                  AppRouter.inputBillScreen, 
                 );
+                
               },
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 140),
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(47, 179, 178, 1),
-                    borderRadius: BorderRadius.circular(16)),
-                child: Text(
-                  "Đăng nhập",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500),
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 16,),
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(47, 179, 178, 1),
+                      borderRadius: BorderRadius.circular(16)),
+                  child: Text(
+                    "Đăng nhập",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500),
+                        textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             ),

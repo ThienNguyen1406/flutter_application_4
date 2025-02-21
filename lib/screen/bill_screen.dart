@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_4/model/bill_model.dart';
 import 'package:flutter_application_4/provider/on_save_provider.dart';
+import 'package:flutter_application_4/screen/action_sceen.dart';
 import 'package:flutter_application_4/themes/app_images.dart';
 import 'package:provider/provider.dart';
 
 class BillScreen extends StatefulWidget {
-  const BillScreen({super.key, required BillModel bill});
+  const BillScreen({super.key});
 
   @override
   State<BillScreen> createState() => _BillScreenState();
@@ -35,9 +35,10 @@ class _BillScreenState extends State<BillScreen> {
           Expanded(
             child: Consumer<OnSaveProvider>(
               builder: (context, provider, child) {
-                final billData =
-                    provider.billData; // Truy cập billData từ provider
-                if (billData.maHoaDon == null || billData.maHoaDon!.isEmpty) {
+                final billData = provider.billData;
+                if (billData == null ||
+                    billData.maHoaDon == null ||
+                    billData.maHoaDon!.isEmpty) {
                   return const Center(
                     child: Text(
                       "Không có mục nào trong hóa đơn!",
@@ -45,38 +46,68 @@ class _BillScreenState extends State<BillScreen> {
                     ),
                   );
                 }
-                return ListView.builder(
-                  itemCount: 1,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text("Mã hóa đơn: ${billData.maHoaDon}"),
-                      subtitle: Text("Tên khách hàng: ${billData.hoTen}"),
-                    );
-                  },
+                return ListView(
+                  children: [
+                    ListTile(
+                      subtitle: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Mã hóa đơn: ${billData.maHoaDon}"),
+                          SizedBox(height: 10),
+                          Text("Tên khách hàng: ${billData.hoTen}"),
+                          SizedBox(height: 10),
+                          Text("Mã khách hàng: ${billData.maBenhNhan}"),
+                          SizedBox(height: 10),
+                          Text("Mã cơ sở: ${billData.maCoSo}"),
+                          SizedBox(height: 10),
+                          Text("Địa chỉ: ${billData.coSoKham}"),
+                          SizedBox(height: 10),
+                          Text("Bác sĩ phụ trách: ${billData.bacSyPhuTrach}"),
+                          SizedBox(height: 10),
+                          Text("Tên dịch vụ: ${billData.tenDichVu}"),
+                          SizedBox(height: 10),
+                          Text("Số lượng: ${billData.soLuong}"),
+                          SizedBox(height: 10),
+                          Text("Đơn giá: ${billData.donGia}"),
+                          SizedBox(height: 10),
+                          Text("Điện thoại: ${billData.dienThoaiDD}"),
+                          SizedBox(height: 10),
+                          Text("Thời gian khám: ${billData.thoiGianKham}"),
+                        ],
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: const Color.fromRGBO(47, 179, 178, 1),
-              borderRadius: BorderRadius.circular(16),
-            ),
+          Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Xác Nhận Hóa Đơn Thành Công!")),
+                final provider =
+                    Provider.of<OnSaveProvider>(context, listen: false);
+                provider.updateBillData(provider.billData!);
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ActionSceen(),
+                  ),
                 );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromRGBO(47, 179, 178, 1),
                 padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 120),
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 110),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16)),
               ),
               child: const Text(
                 "Xác Nhận Hóa Đơn",
                 style: TextStyle(color: Colors.white, fontSize: 18),
+                textAlign: TextAlign.center,
               ),
             ),
           ),

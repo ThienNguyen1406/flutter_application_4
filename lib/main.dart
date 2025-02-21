@@ -3,6 +3,7 @@ import 'package:flutter_application_4/page/login_screen.dart';
 import 'package:flutter_application_4/provider/image_provider.dart';
 import 'package:flutter_application_4/provider/loading_provider.dart';
 import 'package:flutter_application_4/provider/on_save_provider.dart';
+import 'package:flutter_application_4/router/app_router.dart';
 import 'package:flutter_application_4/widget/loading_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -25,21 +26,34 @@ class MyApp extends StatelessWidget {
         return Consumer<LoadingProvider>(
           builder: (context, loading, child) {
             return MaterialApp(
+              initialRoute: AppRouter.loginScreen,
+              routes: AppRouter.routes,
               debugShowCheckedModeBanner: false,
-              home: Stack(
-                children: [
-                  MaterialApp(
-                    theme: ThemeData(
-                      primarySwatch: Colors.blue,
-                      useMaterial3: false,
+              home: Builder(
+                builder: (context) {
+                  final padding = MediaQuery.of(context).padding;
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      top: padding.top,
+                      bottom: padding.bottom,
+                      left: padding.left,
+                      right: padding.right,
                     ),
-                    debugShowCheckedModeBanner: false,
-                    home: LoginScreen(),
-                  ),
-                  loading.isLoading
-                      ? const LoadingWidget()
-                      : const SizedBox.shrink()
-                ],
+                    child: Stack(
+                      children: [
+                        MaterialApp(
+                          theme: ThemeData(
+                            primarySwatch: Colors.blue,
+                            useMaterial3: false,
+                          ),
+                          debugShowCheckedModeBanner: false,
+                          home: LoginScreen(),
+                        ),
+                        if (loading.isLoading) const LoadingWidget(),
+                      ],
+                    ),
+                  );
+                },
               ),
             );
           },

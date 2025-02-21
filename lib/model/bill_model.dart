@@ -8,7 +8,7 @@ class BillModel {
   String? bacSyPhuTrach;
   String? tenDichVu;
   int? soLuong;
-  int? donGia;
+  double? donGia;
   String? maCoSo;
 
   BillModel(

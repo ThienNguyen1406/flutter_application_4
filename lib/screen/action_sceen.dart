@@ -23,6 +23,7 @@ class _ActionSceenState extends State<ActionSceen> {
                 duration: const Duration(seconds: 2),
                 key: ValueKey<int>(imagesProvider.currentIndex),
                 child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 16),
                   key: ValueKey<int>(imagesProvider.currentIndex),
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -70,7 +71,8 @@ class _ActionSceenState extends State<ActionSceen> {
                     child: Center(
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 16, horizontal: 40),
+                            vertical: 16),
+                            width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                             color: const Color.fromRGBO(47, 179, 178, 1),
                             borderRadius: BorderRadius.circular(16)),
@@ -80,6 +82,7 @@ class _ActionSceenState extends State<ActionSceen> {
                               fontSize: 18,
                               color: Colors.white,
                               fontWeight: FontWeight.w700),
+                              textAlign: TextAlign.center,
                         ),
                       ),
                     ),
